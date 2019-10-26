@@ -33,10 +33,12 @@ from sklearn.preprocessing import LabelBinarizer
 from sklearn.preprocessing import MinMaxScaler
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
+from keras.utils import plot_model
 
 
 
-EPOCHS_NUM=5
+
+EPOCHS_NUM=200
 # construct the path to the input .txt file that contains information
 # on each house in the dataset and then load the dataset
 
@@ -69,8 +71,7 @@ print("[INFO]removed zipcodes which less than 25 houses")
 
 
 
-# load the house images and then scale the pixel intensities to the
-# range [0, 1]
+# load the house images and then 
 
 if not os.path.exists('HouseImages'):
     os.makedirs('HouseImages')
@@ -116,33 +117,30 @@ for recordIndex in df.index:
 
 
 
-
+#scale the pixel intensities to the range [0, 1]
 images = np.array(trainingImages, dtype="float") / 255.0
 
 
 
 
-
-
-
-
-'''
-print("[INFO] loading house images...")
-images = datasets.load_house_images(df, args["dataset"])
-images = images / 255.0
-'''
-
 # partition the data into training and testing splits using 75% of
 # the data for training and the remaining 25% for testing
-split = train_test_split(df, images, test_size=0.25, random_state=42)
-(trainY, testY, trainX, testX) = split
+(trainY, testY, trainX, testX) = train_test_split(df, images, test_size=0.25, random_state=42)
 
 # find the largest house price in the training set and use it to
 # scale our house prices to the range [0, 1] (will lead to better
 # training and convergence)
 maxPrice = trainY["price"].max()
-trainY = trainY["price"] / maxPrice
-testY = testY["price"] / maxPrice
+print("maxPrice={}".format(maxPrice))
+input("press any key")
+
+trainY=trainY["price"].values
+trainY = trainY / maxPrice
+
+testY=testY["price"].values
+testY = testY / maxPrice
+
+
 
 
 print("Shapee of training  data set {}".format(trainX.shape))
@@ -195,6 +193,15 @@ model = Model(inputs, x)
 
 #model = models.create_cnn(64, 64, 3, regress=True)
 model.summary()
+fileToSaveModelPlot='model.png'
+plot_model(model, to_file='model.png')
+print("[INFO] Model plot saved to {}".format(fileToSaveModelPlot) )
+
+
+
+
+
+
 
 opt = Adam(lr=1e-3, decay=1e-3 / 200)
 model.compile(loss="mean_absolute_percentage_error", optimizer=opt)
@@ -204,8 +211,8 @@ print("[INFO] training model...")
 history=model.fit(trainX, trainY, validation_data=(testX, testY),epochs=EPOCHS_NUM, batch_size=8)
 
 # make predictions on the testing data
-print("[INFO] predicting house prices...")
-preds = model.predict(testX)
+
+
 
 
 
@@ -215,6 +222,33 @@ print("[INFO] model saved to housePrice.keras2")
 # make predictions on the testing data
 print("[INFO] predicting house prices...")
 preds = model.predict(testX)
+
+
+
+# compute the difference between the *predicted* house prices and the
+# *actual* house prices, then compute the percentage difference and
+# the absolute percentage difference
+diff = preds.flatten() - testY
+percentDiff = (diff / testY) * 100
+absPercentDiff = np.abs(percentDiff)
+
+# compute the mean and standard deviation of the absolute percentage
+# difference
+mean = np.mean(absPercentDiff)
+std = np.std(absPercentDiff)
+
+# finally, show some statistics on our model
+locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
+print("[INFO] avg. house price: {}, std house price: {}".format(
+	locale.currency(df["price"].mean(), grouping=True),
+	locale.currency(df["price"].std(), grouping=True)))
+print("[INFO] mean: {:.2f}%, std: {:.2f}%".format(mean, std))
+
+
+#readjust house prices
+testY=testY*maxPrice
+preds=preds*maxPrice
+
 
 validationLoss=(history.history['val_loss'])
 trainingLoss=history.history['loss']
@@ -239,24 +273,23 @@ plt.show()
 
 
 
-#readjust house prices
-testY=testY*maxPrice
-preds=preds*maxPrice
 
-print(testY.shape)
-print(preds.shape)
 
 #plot curves (Actual vs Predicted)
-
 plt.plot  ( testY ,label="Actual price")
 plt.plot  ( preds, label="Predicted price" )
 plt.title ('House prices')
 plt.xlabel("Point #")
 plt.ylabel("Price")
 plt.legend(loc="upper right")
-plt.show()
 plt.savefig("HousePrices.png")
+plt.show()
 print("[INFO] predicted vs actual price saved to HousePrices.png")
+
+
+
+
+
 
 
 
