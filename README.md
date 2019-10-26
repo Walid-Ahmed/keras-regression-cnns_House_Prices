@@ -22,6 +22,3 @@ The variable to precit is the price of the house
 
 When training finishes the following, curves will show the traning and validation. Another curve will also be shown for actual vs predicted prices. Both curves are saved to local drive. Also the trained  model is saved as housePrice.keras2 
 
-<img src="https://github.com/Walid-Ahmed/keras-regression-house-prices/blob/master/sampleImages/loss.png">
-
-<img src="https://github.com/Walid-Ahmed/keras-regression-house-prices/blob/master/sampleImages/price.png">
