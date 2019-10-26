@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt
 
 
 
-EPOCHS_NUM=200
+EPOCHS_NUM=5
 # construct the path to the input .txt file that contains information
 # on each house in the dataset and then load the dataset
 
@@ -242,7 +242,12 @@ plt.show()
 #readjust house prices
 testY=testY*maxPrice
 preds=preds*maxPrice
+
+print(testY.shape)
+print(preds.shape)
+
 #plot curves (Actual vs Predicted)
+
 plt.plot  ( testY ,label="Actual price")
 plt.plot  ( preds, label="Predicted price" )
 plt.title ('House prices')
