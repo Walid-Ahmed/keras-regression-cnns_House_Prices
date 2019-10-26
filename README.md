@@ -1,7 +1,7 @@
 # keras-regression-cnns_House_Prices
 
 
-Special thanks to [Adrian Rosebrock](https://www.pyimagesearch.com/author/adrian/)   for his  [great post](https://www.pyimagesearch.com/2019/01/28/keras-regression-and-cnns//) thaw was used as baseline for this tutourial.
+Special thanks to [Adrian Rosebrock](https://www.pyimagesearch.com/author/adrian/)   for his  [great post](https://www.pyimagesearch.com/2019/01/28/keras-regression-and-cnns//) that was used as baseline for this tutourial.
 
 This  simple code  creates and train a neural network to predict house prices based on 4 images for each house , you can try it by running the command  'python cnn_regression.py'. 
 
