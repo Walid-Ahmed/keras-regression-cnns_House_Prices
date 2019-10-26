@@ -8,7 +8,6 @@ This  simple code  creates and train a neural network to predict house prices, y
 
 The model used is as the following:
 
-<img src="https://github.com/Walid-Ahmed/keras-regression-house-prices/blob/master/sampleImages/model.png"  align="middle">
 
 The dataset is from   https://github.com/emanhamed/Houses-dataset, this house dataset includes four numerical and categorical attributes as input and the one continous variable as output:
 1. Number of bedrooms (continous)
@@ -21,6 +20,3 @@ The variable to precit is the price of the house
 
 When training finishes the following, curves will show the traning and validation. Another curve will also be shown for actual vs predicted prices. Both curves are saved to local drive. Also the trained  model is saved as housePrice.keras2 
 
-<img src="https://github.com/Walid-Ahmed/keras-regression-house-prices/blob/master/sampleImages/loss.png">
-
-<img src="https://github.com/Walid-Ahmed/keras-regression-house-prices/blob/master/sampleImages/price.png">
