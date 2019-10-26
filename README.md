@@ -1,5 +1,4 @@
 # keras-regression-cnns_House_Prices
-keras-regression-cnns
 
 
 Special thanks to [Adrian Rosebrock](https://www.pyimagesearch.com/author/adrian/)   for his  [great post](https://www.pyimagesearch.com/2019/01/21/regression-with-keras/) thaw was used as baseline for this tutourial.
