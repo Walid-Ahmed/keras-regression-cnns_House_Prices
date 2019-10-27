@@ -17,7 +17,7 @@ The dataset is from   https://github.com/emanhamed/Houses-dataset, this house da
 4. Zip code (Cateogiral)
 5. Price (continous)
 
-Moreover the dataset includes 4 images for each house and this what will be used for training, The 4 images of each house will be tiled together into one image which will be the input to our CNN and the output is the price. Bathroom/Kitchen/Frontal/bedroom.
+Moreover the dataset includes 4 images for each house and this what will be used for training, The 4 images of each house (Bathroom/Kitchen/Frontal/bedroom) will be tiled together into one image 64*64 px which will be the input to our CNN and the output is the price. .
 
 
 When training finishes the   a curves will show the traning and validation loss. Another curve will also be shown for actual vs predicted prices. Both curves are saved to local drive. Also the trained  model is saved as housePrice.keras2 
