@@ -15,7 +15,7 @@ The dataset is from   https://github.com/emanhamed/Houses-dataset, this house da
 2. Number of bathrooms(continous)
 3. Area (continous)
 4. Zip code (Cateogiral)
-5.Price (continous)
+5. Price (continous)
 
 Moreover the dataset includes 4 images for each house and this what will be used for training, The 4 images of each house will be tiled together into one image which will be the input to our CNN and the output is the price. Bathroom/Kitchen/Frontal/bedroom.
 
